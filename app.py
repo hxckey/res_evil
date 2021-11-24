@@ -29,5 +29,17 @@ def char_handler(char_id):
     resp, code = functions[request.method](request, char_id)
     return jsonify(resp), code
 
+@app.errorhandler(exceptions.NotFound)
+def handle_404(err):
+    return {'message': f'WARNING! {err}'}, 404
+
+@app.errorhandler(exceptions.BadRequest)
+def handle_400(err):
+    return {'message': f'WARNING! {err}'}, 400
+
+@app.errorhandler(exceptions.InternalServerError)
+def handle_500(err):
+    return {'message': f"Umbrella system failure"}, 500
+
 if __name__ == '__main__':
     app.run(debug=True)

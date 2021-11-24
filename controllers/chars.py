@@ -1,3 +1,5 @@
+from werkzeug.exceptions import BadRequest
+
 chars = [
     {"id": 1, "name": "Jill Valentine", "affiliation": ["STARS"], "debut": "Resident Evil, 1996"},
     {"id": 2, "name": "Chris Redfield", "affiliation": ["STARS"], "debut": "Resident Evil, 1996"},
@@ -21,7 +23,7 @@ def find_by_id(cid):
             return f"No agent with ID:{cid} found in Umbrella database"
         return char[0]
     except: 
-        raise Exception(f"No agent with ID:{cid} found in Umbrella database")
+        raise BadRequest(f"No agent with ID:{cid} found in Umbrella database")
 
 def show(req, cid):
     return find_by_id(cid), 200
